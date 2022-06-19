@@ -1,0 +1,65 @@
+import random
+from count import count
+
+phrases = ["He would only survive if he kept the fire going and he could hear thunder in the distance.",
+"Twin 4-month-olds slept in the shade of the palm tree while the mother tanned in the sun.",
+"The memory we used to share is no longer coherent."
+"She had the gift of being able to paint songs.",
+"When nobody is around, the trees gossip about the people who have walked under them.",
+"He never understood why what, when, and where left out who.",
+"Jim liked driving around town with his hazard lights on."
+]
+
+print("Welcome to the typing test!\n\nYou will be tested by writing a sentence. Be as fast as you can, you will be timed.")
+
+print("Type anything to continue")
+
+input('')
+
+timer = count()
+
+def getPhrase():
+    return random.choice(phrases) # why not
+
+def checkSentence(sentence,phrase, time): 
+  # this is how I went with checking a sentence..
+  wpm = round(len(phrase) / (time/2) * 4.5)
+  accuracy = 100
+
+  extraLetters = len(phrase) - len(sentence)
+  if extraLetters < 0: # in case the sentence is longer than the user's input 
+    accuracy += extraLetters*5
+    extraLetters = 0
+
+  accuracy -= extraLetters*5 # if there are actual extra letters if the user's input is longer than the sentence itself.
+    
+  for i in range(len(phrase) - extraLetters): # if in case the user's input is longer than the phrase.
+      
+    if phrase[i] == sentence[i] and accuracy + 5 < 100:
+      accuracy += 5
+      continue
+    #otherwise
+    accuracy -= 5
+    
+  if accuracy < 0:
+    accuracy = 0
+  print(f"WPM: {wpm}\nAccuracy: {accuracy}\n")
+
+def test():
+    phrase = getPhrase()
+    print("\n\n{}".format(phrase))
+    timer.start()
+    sentence = input("\n\nType your sentence here: ")
+    time = round(timer.stop(),2)
+    print("Time taken: {}".format({time}))
+    checkSentence(sentence,phrase, time)
+
+test()
+
+
+
+
+ # FUNCTIONS
+    
+    
+    
