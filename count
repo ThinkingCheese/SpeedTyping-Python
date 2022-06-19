@@ -1,0 +1,16 @@
+import time
+
+class count:
+    number = None
+    def start(self):
+        if self.number == None:
+            self.number = time.perf_counter()
+            return
+        raise Exception("Please stop before attempting to start.")
+        
+    def stop(self):
+        if self.number != None:
+            result = time.perf_counter() - self.number
+            self.number = None
+            return result
+        raise Exception("WARNING: Cannot stop when counter is not running!")
